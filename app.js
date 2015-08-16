@@ -1,6 +1,7 @@
 var cons = require('consolidate');
 var ejs = require('ejs')
 
+var fs = require('fs');
 var bodyParser = require('body-parser');          // todo: test POST
 var methodOverride = require('method-override');  // todo: test PUT, DELETE
 var multer = require('multer');                   // todo: test multipart POST
@@ -31,13 +32,25 @@ app.use(compression());
 app.use(errorhandler());
 
 app.get('/', function(req, res){
+  
+  if( req.cookies['submitted'] ){
+    res.redirect('/success');
+    return;
+  }
+
+  var card_obj = JSON.parse(fs.readFileSync('cards.json', 'utf8'));
+  var card_arr = [];
+  card_arr = card_obj.data
+  card_arr = card_arr.sort();
+
   res.render('main', {
-    ejs: ejs
+    ejs: ejs,
+    card_arr: card_arr
   })
 });
 
-app.get('/components', function(req, res){
-  res.render('components')
+app.get('/success', function(req, res){
+  res.sendfile(__dirname + '/public/html/success.html');
 });
 
 app.listen(3002, function(){

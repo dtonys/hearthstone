@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title> FE Boilerplate </title>
+    <title> Hearthstone </title>
     <!-- For mobile responsive sites only -->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
@@ -14,23 +14,51 @@
   <body>
 
     <div id="main" class="layout-content" >
-      <div class="head"> FE Boilerplate </div>
+      <div class="head"> Hearthstone </div>
+
       <div class="content">
-        <div class="container">
-          <div class="text" > CSS -> SASS + COMPASS </div>
-          <div class="text" > JS -> jQuery </div>
-          <div class="text" > Assets -> Grunt + Livereload </div>
-          <div class="text" > Server -> Nodejs + Express </div>
-        </div>
-        <div class="container">
-          <a href="/components"> Components </a>
-        </div>
-        <div class="container">
-          <% include ./partial_1 %>
-        </div>
-        <div class="container">
-          <% include ./partial_2 %>
-        </div>
+        <form id="main-form" >
+          <div class="select-rank-wrap">
+            <select name="rank">
+              <option value=""> Select your rank </option>
+              <% for( var i = 1; i <= 21; i++ ){ %>
+                  <% if( i === 21 ){ %>
+                    <option value="Legend"> Legend </option>
+                  <% } else { %>
+                    <option value="<%= (21-i) %>"> <%= (21-i) %> </option>
+                  <% } %>
+              <% } %>
+            </select>
+          </div>
+
+          <table style="width:100%">
+            <% for( var i = 1; i <= 4; i++ ){ %>
+              <tr>
+                <!-- rank, prize_type, prize_amount, card_name -->
+                <td> <%= i %> </td>
+                <td>
+                  <select name="prize_type[]">
+                    <option selected="1" value=""> Select an item </option>
+                    <option value="Card"> Card </option>
+                    <option  value="Gold"> Gold </option>
+                    <option value="Dust"> Dust </option>
+                  </select>
+                </td>    
+                <td>
+                  <input class="amount input" type="number" name="amount[]" placeholder="item amount" />
+                  <select class="card_select" name="card_name[]" style="display: none;" >
+                    <option value=""> Select a card </option>
+                    <% card_arr.forEach(function( card ){ %>
+                      <option> <%= card %> </option>
+                    <% }) %>
+                  </select>
+                </td>
+              </tr>
+            <% } %>
+          </table>
+          <!-- <input type="submit" class="btn" style="margin: 10px auto 0; width: 200px" value="submit"> -->
+          <div class="btn submit-btn" style="margin: 10px auto 0; width: 200px" > submit </div>
+        </form>
       </div>
     </div>
 
@@ -38,6 +66,8 @@
     <!-- JS -->
     <!-- ** -->
     <% include ./core_js %>
+    <script src="https://cdn.firebase.com/js/client/2.2.9/firebase.js"></script>
+    <script src="/js/jquery.serializejson.js"></script>
     <script src="/js/main.js"></script>
   </body>
 </html>
