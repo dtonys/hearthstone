@@ -19,7 +19,8 @@
   },
   "devDependencies": {},
   "scripts": {
-    "start": "node app.js",
+    "start": "forever start --uid hearthstone --append app.js",
+    "dev": "node app.js",
     "build": "sass --update stylesheets:public/css"
   }
 }
