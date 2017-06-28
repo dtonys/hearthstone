@@ -19,6 +19,7 @@
   },
   "devDependencies": {},
   "scripts": {
-    "test": "echo test"
+    "start": "node app.js",
+    "build": "sass --update stylesheets:public/css"
   }
 }

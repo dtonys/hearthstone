@@ -6,10 +6,10 @@ var bodyParser = require('body-parser');          // todo: test POST
 var methodOverride = require('method-override');  // todo: test PUT, DELETE
 var multer = require('multer');                   // todo: test multipart POST
 var cookieParser = require('cookie-parser');      // check req.cookies
-var morgan = require('morgan');   
+var morgan = require('morgan');
 var favicon = require('serve-favicon');
 var compression = require('compression');
-var errorhandler = require('errorhandler');      
+var errorhandler = require('errorhandler');
 
 var uploads = multer({ dest: 'public/uploads' }); // todo: test upload files
 var express = require('express');
@@ -32,7 +32,7 @@ app.use(compression());
 app.use(errorhandler());
 
 app.get('/', function(req, res){
-  
+
   if( req.cookies['submitted'] ){
     res.redirect('/success');
     return;
@@ -53,6 +53,6 @@ app.get('/success', function(req, res){
   res.sendfile(__dirname + '/public/html/success.html');
 });
 
-app.listen(8002, function(){
+app.listen(8020, function(){
   console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
 });
